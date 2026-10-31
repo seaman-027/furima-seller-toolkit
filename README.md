@@ -41,13 +41,26 @@ python seller_templates.py render out_of_stock \
 | `cancel_request` | キャンセル依頼への対応（全額返金） |
 | `shipping_done` | 発送完了の連絡 |
 | `question_reply` | 購入前の質問への返信 |
+| `price_accept` | 値下げ了承の返信 |
 
 テンプレートは `templates/` フォルダの Markdown ファイルです。
 自分の言葉に合わせて自由に編集してください。
 
+## Premium Pack（有料版）
+
+全9テンプレートに、各テンプレートの記入例と送信前チェックポイント、
+共通の送信前チェックリストを付けた Premium Pack を Gumroad で販売しています。
+返品相談・まとめ買い相談の2テンプレートは Premium Pack のみの収録です。
+
+A Premium Pack with all 9 templates — each with a filled example and
+pre-send checks, plus a shared checklist — is available on Gumroad.
+Two templates (returns and bundle purchases) are exclusive to the pack.
+
+→ **Premium Pack Vol.1（$5.00）: https://tongjiejoy.gumroad.com/l/rekrub**
+
 ## ロードマップ / Roadmap
 
-- [ ] テンプレート追加（値下げ了承パターン、返品相談、まとめ買い相談）
+- [ ] テンプレート追加（返品相談、まとめ買い相談）
 - [ ] 複数プラットフォーム向け表記（メルカリ / ラクマ / Yahoo!フリマ）
 - [ ] 英語テンプレート
 - [ ] 発送期限チェックなど、在庫・発送まわりの小物ツール

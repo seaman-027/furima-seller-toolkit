@@ -40,6 +40,11 @@ class TestTemplates(unittest.TestCase):
         for var in ("item_name", "alt_item", "alt_detail", "alt_price"):
             self.assertIn(var, st.template_variables(text))
 
+    def test_price_accept_variables(self):
+        text = st.load_template("price_accept")
+        for var in ("item_name", "price"):
+            self.assertIn(var, st.template_variables(text))
+
 
 if __name__ == "__main__":
     unittest.main()
