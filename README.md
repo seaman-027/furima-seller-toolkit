@@ -42,6 +42,7 @@ python seller_templates.py render out_of_stock \
 | `shipping_done` | 発送完了の連絡 |
 | `question_reply` | 購入前の質問への返信 |
 | `price_accept` | 値下げ了承の返信 |
+| `return_consultation` | 返品相談への対応 |
 
 テンプレートは `templates/` フォルダの Markdown ファイルです。
 自分の言葉に合わせて自由に編集してください。
@@ -60,7 +61,7 @@ Two templates (returns and bundle purchases) are exclusive to the pack.
 
 ## ロードマップ / Roadmap
 
-- [ ] テンプレート追加（返品相談、まとめ買い相談）
+- [ ] テンプレート追加（まとめ買い相談）
 - [ ] 複数プラットフォーム向け表記（メルカリ / ラクマ / Yahoo!フリマ）
 - [ ] 英語テンプレート
 - [ ] 発送期限チェックなど、在庫・発送まわりの小物ツール

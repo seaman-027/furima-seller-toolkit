@@ -45,6 +45,11 @@ class TestTemplates(unittest.TestCase):
         for var in ("item_name", "price"):
             self.assertIn(var, st.template_variables(text))
 
+    def test_return_consultation_variables(self):
+        text = st.load_template("return_consultation")
+        for var in ("item_name", "response_days"):
+            self.assertIn(var, st.template_variables(text))
+
 
 if __name__ == "__main__":
     unittest.main()
