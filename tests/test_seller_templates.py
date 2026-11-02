@@ -55,6 +55,52 @@ class TestTemplates(unittest.TestCase):
         for var in ("item_names", "bundle_price", "shipping_note"):
             self.assertIn(var, st.template_variables(text))
 
+    def test_shipping_done_platform_variable(self):
+        text = st.load_template("shipping_done")
+        self.assertIn("platform", st.template_variables(text))
+
+    def test_return_consultation_platform_variable(self):
+        text = st.load_template("return_consultation")
+        self.assertIn("platform", st.template_variables(text))
+
+
+class TestPlatform(unittest.TestCase):
+    def test_resolve_known_platforms(self):
+        self.assertEqual(st.resolve_platform("mercari"), "メルカリ")
+        self.assertEqual(st.resolve_platform("rakuma"), "ラクマ")
+        self.assertEqual(st.resolve_platform("yahoo"), "Yahoo!フリマ")
+
+    def test_resolve_unknown_platform_fails(self):
+        with self.assertRaises(SystemExit):
+            st.resolve_platform("unknown-shop")
+
+    def test_render_platform_option_fills_placeholder(self):
+        import contextlib
+        import io
+
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            code = st.main(
+                ["render", "shipping_done", "--platform", "yahoo",
+                 "--set", "method=おてがる配送"]
+            )
+        self.assertEqual(code, 0)
+        self.assertIn("Yahoo!フリマで受取評価", out.getvalue())
+        self.assertNotIn("{platform}", out.getvalue())
+
+    def test_explicit_set_platform_wins_over_option(self):
+        import contextlib
+        import io
+
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            st.main(
+                ["render", "shipping_done", "--platform", "yahoo",
+                 "--set", "method=おてがる配送",
+                 "--set", "platform=メルカリ"]
+            )
+        self.assertIn("メルカリで受取評価", out.getvalue())
+
 
 if __name__ == "__main__":
     unittest.main()

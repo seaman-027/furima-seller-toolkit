@@ -31,6 +31,17 @@ python seller_templates.py render out_of_stock \
 埋めていない変数は `{item_name}` のようにそのまま残り、
 標準エラーに未入力の一覧が出るので、送信前の見落としを防げます。
 
+プラットフォーム名は `--platform` でまとめて指定できます
+（`mercari` / `rakuma` / `yahoo`）。`{platform}` を含むテンプレート
+（発送完了・返品相談）に自動で入り、明示的な `--set platform=...` が優先されます。
+
+```bash
+# Yahoo!フリマ向けに発送完了の連絡を生成
+python seller_templates.py render shipping_done \
+  --platform yahoo \
+  --set method=おてがる配送
+```
+
 ## テンプレート一覧 / Templates
 
 | ファイル | 場面 |
@@ -64,6 +75,7 @@ Two templates (returns and bundle purchases) are exclusive to the pack.
 
 - [x] テンプレート追加（まとめ買い相談）
 - [ ] 複数プラットフォーム向け表記（メルカリ / ラクマ / Yahoo!フリマ）
+  - 進行中：`render --platform` で `{platform}` を埋められるようにした（対応テンプレート：発送完了・返品相談）
 - [ ] 英語テンプレート
 - [ ] 発送期限チェックなど、在庫・発送まわりの小物ツール
 

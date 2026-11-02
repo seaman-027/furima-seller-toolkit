@@ -24,6 +24,29 @@ from pathlib import Path
 TEMPLATE_DIR = Path(__file__).resolve().parent / "templates"
 VAR_PATTERN = re.compile(r"\{([a-zA-Z0-9_]+)\}")
 
+# Platform display names for the ``--platform`` option of ``render``.
+# Keys are short, lowercase identifiers; values are the names sellers
+# actually see on each marketplace. Templates use ``{platform}`` where
+# the wording depends on the marketplace (e.g. its rules or rating flow).
+PLATFORMS = {
+    "mercari": "メルカリ",
+    "rakuma": "ラクマ",
+    "yahoo": "Yahoo!フリマ",
+}
+
+
+def resolve_platform(name: str) -> str:
+    """Return the display name for a ``--platform`` key.
+
+    Raises ``SystemExit`` with the available keys for an unknown name,
+    so a typo fails loudly instead of rendering a wrong platform name.
+    """
+    key = name.strip().lower()
+    if key not in PLATFORMS:
+        available = ", ".join(sorted(PLATFORMS))
+        raise SystemExit(f"Unknown platform: {name}\nAvailable: {available}")
+    return PLATFORMS[key]
+
 
 def load_template(name: str) -> str:
     """Return the raw text of template *name* (without the .md suffix)."""
@@ -94,6 +117,13 @@ def main(argv: list[str] | None = None) -> int:
         metavar="KEY=VALUE",
         help="Fill a {KEY} placeholder; repeatable",
     )
+    rend.add_argument(
+        "--platform",
+        metavar="PLATFORM",
+        default=None,
+        help="Fill {platform} with a marketplace name "
+        "(mercari, rakuma, yahoo); explicit --set platform=... wins",
+    )
 
     args = parser.parse_args(argv)
 
@@ -117,6 +147,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "render":
         values = parse_set_args(args.pairs)
+        if args.platform is not None:
+            values.setdefault("platform", resolve_platform(args.platform))
         output = render(text, values)
         print(output)
         missing = [v for v in template_variables(text) if v not in values]

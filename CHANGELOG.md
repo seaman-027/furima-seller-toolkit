@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- CLI に `--platform` オプション追加（mercari / rakuma / yahoo）：`{platform}` を含むテンプレートにプラットフォーム名を自動で埋め込む。明示的な `--set platform=...` が優先
+- テンプレートのプラットフォーム表記：発送完了（`shipping_done`）と返品相談（`return_consultation`）に `{platform}` を導入
 - 返信テンプレート追加：値下げ了承（`price_accept`）
 - ドキュメント修正：ロードマップのテンプレート追加項目から完了済みの値下げ了承を除き、残りを返品相談・まとめ買い相談に更新
 - READMEに Premium Pack（Gumroad）へのリンクを追加
