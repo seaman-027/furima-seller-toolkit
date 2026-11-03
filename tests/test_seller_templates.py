@@ -63,6 +63,10 @@ class TestTemplates(unittest.TestCase):
         text = st.load_template("return_consultation")
         self.assertIn("platform", st.template_variables(text))
 
+    def test_cancel_request_platform_variable(self):
+        text = st.load_template("cancel_request")
+        self.assertIn("platform", st.template_variables(text))
+
 
 class TestPlatform(unittest.TestCase):
     def test_resolve_known_platforms(self):
@@ -86,6 +90,19 @@ class TestPlatform(unittest.TestCase):
             )
         self.assertEqual(code, 0)
         self.assertIn("Yahoo!フリマで受取評価", out.getvalue())
+        self.assertNotIn("{platform}", out.getvalue())
+
+    def test_render_cancel_request_platform_option(self):
+        import contextlib
+        import io
+
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            code = st.main(
+                ["render", "cancel_request", "--platform", "rakuma"]
+            )
+        self.assertEqual(code, 0)
+        self.assertIn("ラクマのルール", out.getvalue())
         self.assertNotIn("{platform}", out.getvalue())
 
     def test_explicit_set_platform_wins_over_option(self):

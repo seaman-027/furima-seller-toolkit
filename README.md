@@ -75,7 +75,7 @@ Two templates (returns and bundle purchases) are exclusive to the pack.
 
 - [x] テンプレート追加（まとめ買い相談）
 - [ ] 複数プラットフォーム向け表記（メルカリ / ラクマ / Yahoo!フリマ）
-  - 進行中：`render --platform` で `{platform}` を埋められるようにした（対応テンプレート：発送完了・返品相談）
+  - 進行中：`render --platform` で `{platform}` を埋められるようにした（対応テンプレート：発送完了・返品相談・キャンセル依頼）
 - [ ] 英語テンプレート
 - [ ] 発送期限チェックなど、在庫・発送まわりの小物ツール
 

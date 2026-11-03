@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- テンプレートのプラットフォーム表記：キャンセル依頼（`cancel_request`）に `{platform}` を導入（キャンセル・返金はプラットフォームのルールに沿う旨を追加）
 - CLI に `--platform` オプション追加（mercari / rakuma / yahoo）：`{platform}` を含むテンプレートにプラットフォーム名を自動で埋め込む。明示的な `--set platform=...` が優先
 - テンプレートのプラットフォーム表記：発送完了（`shipping_done`）と返品相談（`return_consultation`）に `{platform}` を導入
 - 返信テンプレート追加：値下げ了承（`price_accept`）
