@@ -67,6 +67,10 @@ class TestTemplates(unittest.TestCase):
         text = st.load_template("cancel_request")
         self.assertIn("platform", st.template_variables(text))
 
+    def test_bundle_consultation_platform_variable(self):
+        text = st.load_template("bundle_consultation")
+        self.assertIn("platform", st.template_variables(text))
+
 
 class TestPlatform(unittest.TestCase):
     def test_resolve_known_platforms(self):
@@ -103,6 +107,22 @@ class TestPlatform(unittest.TestCase):
             )
         self.assertEqual(code, 0)
         self.assertIn("ラクマのルール", out.getvalue())
+        self.assertNotIn("{platform}", out.getvalue())
+
+    def test_render_bundle_consultation_platform_option(self):
+        import contextlib
+        import io
+
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            code = st.main(
+                ["render", "bundle_consultation", "--platform", "mercari",
+                 "--set", "item_names=スカーフ2点",
+                 "--set", "bundle_price=14000",
+                 "--set", "shipping_note=送料込み"]
+            )
+        self.assertEqual(code, 0)
+        self.assertIn("メルカリのルール", out.getvalue())
         self.assertNotIn("{platform}", out.getvalue())
 
     def test_explicit_set_platform_wins_over_option(self):
